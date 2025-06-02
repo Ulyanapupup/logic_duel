@@ -1,42 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-   <link rel="stylesheet" href="index.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Numbly Game</title>
+    <link rel="stylesheet" href="index.css" />
 </head>
 <body>
-  <div class="fon">
-    <header class="header container">
-      <div class="logo-block">
-        <img src="image/logo.svg" alt="" class="logo-img" />
-        <h1 class="site-title">Logic Duel</h1>
-      </div>
-      <a href="main.html" class="btn">Вернуться на главную</a>
-    </header>
+    <div class="fon">
+        <div class="container">
+            <header>
+                <div class="logo-block">
+                    <img src="image/logo.svg" alt="Логотип" class="logo-img" />
+                    <h1 class="site-title">Logic Duel</h1>
+                </div>
+                <h1 class="game-title">Numbly</h1>
+            </header>
+            <div id="gameArea" class="game-layout hidden">
+            <div class="setup-block">
+                <label for="lengthInput">Выберите длину числа (4-7):</label>
+                <input type="number" id="lengthInput" min="4" max="7" value="4" />
+                <button id="start" class="btn">Начать игру</button>
+                <a href="main.html" class="btn">На главную</a>
+                <a href="index1.html" class="btn">Назад к режимам</a>
+            </div>
+            <div class="play-area">
+                <div id="guessSection" class="hidden">
+                    <h2>Введите ваше предположение:</h2>
+                    <div class="guess-block">
+                        <div id="guessRow" class="guess-row"></div>
+                        <button id="submitGuess" class="btn">Угадать</button>
+                    </div>
+                    <div id="guessDisplayTable"></div>
+                </div>
+            </div>
+            </div>
+            
 
-    <h1 class="select-title">Выберите режим игры</h1>
-    <div class="game container"> 
-      <div class="g">
-        <h2>Numbly</h2>
-        <a href="index.html" class="btn2">1. Вы отгадываете число</a>
-        <a href="index2.html" class="btn2">2. Игра с другом</a>
-      </div>
-    <div class="g">
-      <h2>Угадай число</h2>
-      <a href="/game/1.1"class="btn2">1.1 — Вы угадываете число</a>
-	  <a href="/select_range_1_2" class="btn2">1.2 — Компьютер угадывает ваше число</a>
-	  <a href="/room_setup" class="btn2">Перейти в лобби</a>
+        </div>
     </div>
-    <div class="g">
-      <h2>Wordly</h2>
-      <a href="#" class="btn2">1. Вы отгадываете слово</a>
-      <a href="#" class="btn2">2. Игра с другом</a>
-    </div>
-  </div>
+    <script src="index.js"></script>
 </body>
 </html>
-
-
-
