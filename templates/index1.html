@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/index1.css') }}" />
+  <title>Выбор режима</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index1.css') }}" />
 </head>
 <body>
   <div class="fon">
     <header class="header container">
       <div class="logo-block">
-	  <img src="{{ url_for('static', filename='image/logo.svg') }}" alt="logo-img"/>
+        <img src="{{ url_for('static', filename='image/logo.svg') }}" alt="logo-img"/>
         <h1 class="site-title">Logic Duel</h1>
       </div>
       <a href="/" class="btn">Вернуться на главную</a>
@@ -20,23 +20,21 @@
     <div class="game container"> 
       <div class="g">
         <h2>Numbly</h2>
-        <a href="index.html" class="btn2">1. Вы отгадываете число</a>
-        <a href="index2.html" class="btn2">2. Игра с другом</a>
+        <a href="/index" class="btn2">1. Вы отгадываете число</a>
+        <a href="/index2" class="btn2">2. Игра с другом</a>
       </div>
-    <div class="g">
-      <h2>Угадай число</h2>
-	  <a href="/game/1.1" class="btn2">1. Вы отгадываете число</a>
-	  <a href="/select_range_1_2" class="btn2">2. Программа отгадывает ваше число</a>
-	  <a href="/room_setup" class="btn2">3. Игра с другом</a>
-    </div>
-    <div class="g">
-      <h2>Wordly</h2>
-      <a href="#" class="btn2">1. Вы отгадываете слово</a>
-      <a href="#" class="btn2">2. Игра с другом</a>
+      <div class="g">
+        <h2>Угадай число</h2>
+        <a href="/game/1.1" class="btn2">1. Вы отгадываете число</a>
+        <a href="/select_range_1_2" class="btn2">2. Программа отгадывает ваше число</a>
+        <a href="/room_setup" class="btn2">3. Игра с другом</a>
+      </div>
+      <div class="g">
+        <h2>Wordly</h2>
+        <a href="#" class="btn2">1. Вы отгадываете слово</a>
+        <a href="#" class="btn2">2. Игра с другом</a>
+      </div>
     </div>
   </div>
 </body>
 </html>
-
-
-

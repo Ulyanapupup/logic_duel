@@ -48,6 +48,14 @@ def index():
 def mode_selection():
     return render_template('index1.html')
 
+@app.route('/index')
+def index_page():
+    return render_template('index.html')
+
+@app.route('/index2')
+def index2_page():
+    return render_template('index2.html')
+
 @app.route('/room_setup')
 def room_setup():
     return render_template('room_setup.html')
