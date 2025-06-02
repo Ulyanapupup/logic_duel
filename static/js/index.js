@@ -1,80 +1,168 @@
+const lengthInput = document.getElementById('lengthInput');
+const startBtn = document.getElementById('start');
+const gameArea = document.getElementById('gameArea');
+const guessInput = document.getElementById('guessInput');
+const submitBtn = document.getElementById('submitGuess');
+const historyList = document.getElementById('historyList');
+const guessDisplay = document.getElementById('guessDisplay');
+
 let secretNumber = '';
-let guessLength = 4;
+let numberLength = 4;
+
+startBtn.addEventListener('click', () => {
+  numberLength = parseInt(lengthInput.value, 10);
+
+  if (isNaN(numberLength) || numberLength < 4 || numberLength > 7) {
+    alert('Пожалуйста, выберите длину от 4 до 7.');
+    return;
+  }
+
+  secretNumber = generateSecretNumber(numberLength);
+  console.log('Загаданное число:', secretNumber); // для отладки, можно убрать
+
+  historyList.innerHTML = '';
+  guessDisplay.innerHTML = '';
+  guessInput.value = '';
+  guessInput.maxLength = numberLength;
+  guessInput.placeholder = `Введите ${numberLength}-значное число`;
+  gameArea.classList.remove('hidden');
+
+
+});
+
+submitBtn.addEventListener('click', () => {
+  const guess = guessInput.value.trim();
+
+  if (guess.length !== numberLength) {
+    alert(`Введите число ровно из ${numberLength} цифр.`);
+    return;
+  }
+
+  if (!/^\d+$/.test(guess)) {
+    alert('Введите только цифры.');
+    return;
+  }
+
+  // Отобразить введённое число в ячейках с подсветкой совпадений
+  displayGuess(guess);
+
+  // Добавить в историю
+  addGuessToHistory(guess);
+
+  guessInput.value = '';
+  guessInput.focus();
+});
 
 function generateSecretNumber(length) {
-  let digits = [];
-  while (digits.length < length) {
-    let digit = Math.floor(Math.random() * 10).toString();
-    if (!digits.includes(digit)) {
-      digits.push(digit);
-    }
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    // Можно разрешить ведущие нули, если хотите
+    result += Math.floor(Math.random() * 10);
   }
-  return digits.join('');
+  return result;
 }
 
-function createGuessInputs(length) {
-  const guessRow = document.getElementById('guessRow');
-  guessRow.innerHTML = '';
-  for (let i = 0; i < length; i++) {
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.maxLength = 1;
-    input.className = 'digit-input';
-    guessRow.appendChild(input);
+function displayGuess(guess) {
+  guessDisplay.innerHTML = '';
+  const secretArr = secretNumber.split('');
+  const guessArr = guess.split('');
+  const usedInSecret = new Array(secretArr.length).fill(false);
+  const correctPositions = new Array(secretArr.length).fill(false);
+
+  // Сначала отметим правильные позиции (зелёные)
+  for (let i = 0; i < guessArr.length; i++) {
+    if (guessArr[i] === secretArr[i]) {
+      correctPositions[i] = true;
+      usedInSecret[i] = true; // Отметим, что эта цифра использована
+    }
+  }
+
+  for (let i = 0; i < guessArr.length; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'number-cell';
+
+    if (correctPositions[i]) {
+      cell.classList.add('correct');
+    } else {
+      // Проверяем, есть ли цифра в secretNumber на другой позиции
+      for (let j = 0; j < secretArr.length; j++) {
+        if (!usedInSecret[j] && guessArr[i] === secretArr[j]) {
+          cell.classList.add('yellow'); // Добавляем желтую подсветку
+          usedInSecret[j] = true; // Помечаем цифру как использованную
+          break;
+        }
+      }
+    }
+
+    cell.textContent = guessArr[i];
+    guessDisplay.appendChild(cell);
   }
 }
+
 
 function addGuessToHistory(guess) {
-  const table = document.getElementById('guessDisplayTable');
-  const row = document.createElement('div');
-  row.className = 'guess-history-row';
-
+  const li = document.createElement('li');
+  // Формируем HTML с подсветкой совпадающих цифр
+  let html = '';
   for (let i = 0; i < guess.length; i++) {
-    const cell = document.createElement('div');
-    cell.className = 'guess-history-cell';
-    cell.textContent = guess[i];
     if (guess[i] === secretNumber[i]) {
-      cell.classList.add('correct');
+      html += `<span class="correct-history">${guess[i]}</span>`;
+    } else {
+      html += guess[i];
+    }
+  }
+  if (guess === secretNumber) {
+    alert('Поздравляем! Вы угадали число! 🎉');
+    // Здесь можно добавить сброс игры или другие действия, если нужно
+  }
+  li.innerHTML = html;
+  historyList.appendChild(li);
+}
+function addGuessToHistory(guess) {
+  const li = document.createElement('li');
+  const secretArr = secretNumber.split('');
+  const guessArr = guess.split('');
+  const correctPositions = new Array(secretArr.length).fill(false);
+  const usedInSecret = new Array(secretArr.length).fill(false);
+
+  // Сначала отметим правильные позиции (зелёные)
+  for (let i = 0; i < guessArr.length; i++) {
+    if (guessArr[i] === secretArr[i]) {
+      correctPositions[i] = true;
+      usedInSecret[i] = true;
+    }
+  }
+
+  let html = '';
+  for (let i = 0; i < guessArr.length; i++) {
+    let className = '';
+
+    if (correctPositions[i]) {
+      // Правильная цифра на правильной позиции — зелёная подсветка
+      className = 'correct';
+    } else {
+      // Проверяем, есть ли цифра в secretNumber на другой позиции и не использована ли она уже
+      for (let j = 0; j < secretArr.length; j++) {
+        if (!usedInSecret[j] && guessArr[i] === secretArr[j]) {
+          className = 'yellow'; // Добавляем желтую подсветку
+          usedInSecret[j] = true; // Помечаем цифру как использованную
+          break;
+        }
+      }
     }
 
-    row.appendChild(cell);
+    if (className) {
+      html += `<span class="number-cell ${className}">${guessArr[i]}</span>`;
+    } else {
+      html += `<span class="number-cell">${guessArr[i]}</span>`;
+    }
   }
-
-  table.appendChild(row);
 
   if (guess === secretNumber) {
-    setTimeout(() => {
-      alert('🎉 Поздравляем! Вы угадали число!');
-    }, 100);
+    alert('Поздравляем! Вы угадали число! 🎉');
+    // Здесь можно добавить сброс игры или другие действия, если нужно
   }
+
+  li.innerHTML = html;
+  historyList.appendChild(li);
 }
-
-document.getElementById('start').addEventListener('click', () => {
-  const lengthInput = document.getElementById('lengthInput');
-  guessLength = parseInt(lengthInput.value);
-
-  if (isNaN(guessLength) || guessLength < 4 || guessLength > 7) {
-    alert('Введите число от 4 до 7');
-    return;
-  }
-
-  secretNumber = generateSecretNumber(guessLength);
-  document.getElementById('gameArea').classList.remove('hidden');
-  document.getElementById('guessSection').classList.remove('hidden');
-  document.getElementById('guessDisplayTable').innerHTML = '';
-  createGuessInputs(guessLength);
-});
-
-document.getElementById('submitGuess').addEventListener('click', () => {
-  const inputs = document.querySelectorAll('#guessRow input');
-  const guess = Array.from(inputs).map(input => input.value.trim()).join('');
-
-  if (guess.length !== guessLength || !/^\d+$/.test(guess)) {
-    alert('Введите корректное число полностью');
-    return;
-  }
-
-  addGuessToHistory(guess);
-  createGuessInputs(guessLength);
-});
-
