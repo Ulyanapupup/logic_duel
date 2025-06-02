@@ -42,7 +42,7 @@ def make_session_permanent():
 
 @app.route('/')
 def index():
-    return render_template('main.html')
+    return render_template('index.html')
 
 @app.route('/room_setup')
 def room_setup():
