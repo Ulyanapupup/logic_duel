@@ -14,7 +14,7 @@ from game_logic.mode_1_2 import Game  # импорт класса Game из mode
 
 from game_logic.mode_2_1 import Game2_1
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.secret_key = 'some_secret_key'  # для сессий
 socketio = SocketIO(app, cors_allowed_origins="*")
 

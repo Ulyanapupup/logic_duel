@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Logic Duel</title>
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
 </head>
 <body>
     <div class="fon">
         <header class="container">
             <span class="logo">
-                <img src="image/logo.svg" alt=""/>
+				<img src="{{ url_for('static', filename='image/logo.svg') }}" alt="logo-img"/>
                 <h1>Logic Duel</h1>
             </span>
             <nav>
@@ -31,7 +31,7 @@
                     <h2>Надеемся, что наши игры подарят вам множество положительных эмоций и интересные моменты. Играйте, получайте удовольствие и развивайтесь вместе с нами!</h2>
                 </div>
             </div>
-            <img src="image/img1.svg" alt="Иллюстрация с играми" />
+			<img src="{{ url_for('static', filename='image/img1.svg') }}" alt="Иллюстрация с играми"/>
         </div>
         <hr class="divider" id="guess-number"/>
         <div class="name container" >
@@ -41,7 +41,7 @@
         <div class="modes-section container">
             <div class="choice1 container">
                 <h1>Игроки могут выбирать между различными режимами</h1>
-                <img src="image/rule1.png" alt="Режимы игры">
+				<img src="{{ url_for('static', filename='image/rule1.png') }}" alt="Режимы игры"/>
             </div>
 
             <div class="rule container">
@@ -70,7 +70,7 @@
             </div>
             <div class="choice1">
                 <h1>Игроки могут выбирать между различными режимами</h1>
-                <img src="image/rule2.png" alt="Режимы игры">
+				<img src="{{ url_for('static', filename='image/rule2.png') }}" alt="Режимы игры"/>
             </div>
         </div>
 
@@ -90,7 +90,7 @@
             </div>
             <div class="choice1">
                 <h1>Игроки могут выбирать между различными режимами</h1>
-                <img src="image/rule2.png" alt="Режимы игры">
+				<img src="{{ url_for('static', filename='image/rule2.png') }}" alt="Режимы игры"/>
             </div>
         </div>
 

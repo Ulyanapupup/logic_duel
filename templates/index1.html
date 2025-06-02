@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-   <link rel="stylesheet" href="index1.css" />
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/index1.css') }}" />
 </head>
 <body>
   <div class="fon">
     <header class="header container">
       <div class="logo-block">
-        <img src="image/logo.svg" alt="" class="logo-img" />
+	  <img src="{{ url_for('static', filename='image/logo.svg') }}" alt="logo-img"/>
         <h1 class="site-title">Logic Duel</h1>
       </div>
       <a href="/" class="btn">Вернуться на главную</a>
